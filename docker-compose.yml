@@ -1,38 +1,42 @@
 ---
 services:
-  # backend:
-  #   build:
-  #     context: .
-  #   environment:
-  #     DOMAIN: ${DOMAIN}
-  #     POSTGRES_URI: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/default
-  #   labels:
-  #     - traefik.http.routers.backend.rule=Host(`localhost`)
-  #     - traefik.http.services.backend.loadbalancer.server.port=8000
-      
+  backend:
+    build:
+      context: .
+    environment:
+      DOMAIN: ${DOMAIN}
+      SECRET_KEY: ${SECRET_KEY}
+      POSTGRES_URI: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/default
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.backend.rule=Host(`${DOMAIN}`)
+      - traefik.http.routers.backend.entrypoints=websecure
+      - traefik.http.routers.backend.tls.certresolver=myresolver
+      - traefik.http.services.backend.loadbalancer.server.port=8000
+
   postgres:
     image: postgres:16
     restart: unless-stopped
-    ports:
-      - 5432:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 
-  # traefik:
-  #   image: traefik:3.0
-  #   security_opt:
-  #     - no-new-privileges:true
-  #   command:
-  #     - --providers.docker=true
-  #   ports:
-  #     - 8080:80
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock:ro    
-  #   labels:
-  #     - traefik.enable=false
+  traefik:
+    image: traefik:3.0
+    security_opt:
+      - no-new-privileges:true
+    command:
+      - --providers.docker=true
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.myresolver.acme.tlschallenge=true
+      - --certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json
+    ports:
+      - 443:443
+    volumes:
+      - .letsencrypt:/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 
 volumes:
   postgres_data:
