@@ -1,7 +1,9 @@
 # Fast AnonCreds
 [Gotta Go Fast!](https://www.youtube.com/watch?v=Z9G1Mf6TZRs)
 
-There's also the [OpenAPI web page](https://fast.anoncreds.vc/docs) available!
+- There's also the [OpenAPI web page](https://fast.anoncreds.vc/docs) available!
+- View the underlying anoncreds-rs library [here](https://github.com/hyperledger/anoncreds-rs).
+- Read the anoncreds specification [here](https://hyperledger.github.io/anoncreds-spec/).
 
 ## Creating AnonCreds Objects
 Please be patient when creating objects.
