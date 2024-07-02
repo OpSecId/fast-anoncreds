@@ -36,12 +36,7 @@ app.include_router(api_router)
 
 @app.get("/.well-known/did.json", include_in_schema=False)
 async def did_document():
-    did_doc = {
-        "@context": [
-            "https://www.w3.org/ns/did/v1"
-        ],
-        "id": settings.DID_WEB
-    }
+    did_doc = {"@context": ["https://www.w3.org/ns/did/v1"], "id": settings.DID_WEB}
     return JSONResponse(status_code=200, content=did_doc)
 
 
