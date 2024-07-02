@@ -13,6 +13,7 @@ from anoncreds import (
 import base64
 import json
 import uuid
+import datetime
 
 router = APIRouter()
 
@@ -101,7 +102,8 @@ async def setup(request_body: Setup):
         )
         anoncreds_objects["rev_reg_def_pub"] = rev_reg_def_pub.to_dict()
         anoncreds_objects["rev_reg_def_private"] = rev_reg_def_private.to_dict()
-        time_create_rev_status_list = 12
+        # time_create_rev_status_list = 12
+        time_create_rev_status_list = int(datetime.datetime.now().timestamp())
         revocation_status_list = RevocationStatusList.create(
             cred_def_pub,
             rev_reg_def_id,
