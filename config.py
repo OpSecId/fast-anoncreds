@@ -24,9 +24,9 @@ class Settings(BaseSettings):
     DOMAIN: str = os.environ["DOMAIN"]
     DID_WEB: str = f"did:web:{DOMAIN}"
     HTTPS_BASE: str = f"https://{DOMAIN}"
+    DOCS: str = os.environ["DOCS"]
     SECRET_KEY: str = os.environ["SECRET_KEY"]
     POSTGRES_URI: str = os.environ["POSTGRES_URI"]
-    JWT_ALGORITHM: str = "HS256"
 
 
 settings = Settings()
