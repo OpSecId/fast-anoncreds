@@ -30,3 +30,23 @@ curl -X 'POST' \
       }' | jq .
 
 ```
+
+### Get a specific object
+```bash
+curl -X 'POST' \
+  'https://fast.anoncreds.vc' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{}' | jq .cred_def_pub
+
+```
+
+### Get object size
+```bash
+curl -X 'POST' \
+  'https://fast.anoncreds.vc' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{}' | jq .cred_def_pub | wc -c
+
+```
