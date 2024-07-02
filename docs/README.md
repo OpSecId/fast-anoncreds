@@ -14,10 +14,15 @@ curl -X 'POST' \
 ## Setup parameters
 ```json
 {
-    "name": "example", # schema name
-    "attributes": [], # schema attributes
-    "size": 10, # revocation registry size
-    "revocation": false, # create revocation registry object
-    "publish": false, # publish verification document
+    // schema name
+    "name": "example",
+    // schema attributes
+    "attributes": [],
+    // revocation registry size
+    "size": 10,
+    // create revocation registry object
+    "revocation": false,
+    // publish verification document
+    "publish": false
 }
 ```
